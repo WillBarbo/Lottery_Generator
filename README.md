@@ -1,2 +1,2 @@
-# Lottery_Generator
+# Lottery_Generator 🛠️ WIP
  Custom lottery roll generator
