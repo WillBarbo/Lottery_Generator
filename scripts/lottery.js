@@ -2,26 +2,37 @@ formLottery.addEventListener("submit",(e)=>{
     e.preventDefault();
 
     const formData = new FormData(formLottery);
-
-    console.log(randomNumber(formData.get('max_roll'),formData.get('num_roll')));
     
+    let maxRoll = parseInt(formData.get('max_roll'));
+    let numberRoll = parseInt(formData.get('num_roll'));
+
+    if (maxRoll < numberRoll){
+        numberRoll = maxRoll;
+    }
+    
+    const rolls = randomNumber(maxRoll,numberRoll);
+
+    result.textContent = rolls[0];
+    for (let i = 1; i < rolls.length; i++){
+        result.appendChild(document.createTextNode("  "+rolls[i]));;
+    }    
 })
 
 function randomNumber(max,number){
 
+    let base = []
     let bet = []
     let roll = 0
+
+    for (let i = 1; i <= max; i++) {
+        base.push(i);
+    }
     
     for (let i = 0; i < number; i++) {
 
-        roll = Math.round(Math.random() * (max - 1) + 1)
+        roll = Math.round(Math.random() * (base.length - 1) + 1)
 
-        if (bet.indexOf(roll) === -1){
-            bet.push(roll)
-        }
-        else {
-            i--
-        }
+        bet.push(base.splice(roll-1,1));
     }
 
     bet.sort((a,b) => (a - b))

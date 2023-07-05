@@ -27,6 +27,10 @@ body {
   border-radius: 10px;
 }
 
+h1 {
+  text-align: center;
+}
+
 form input, form label, form button {
   display: block;
   width: 100%;
@@ -52,8 +56,19 @@ form button {
   height: 50px;
   cursor: pointer;
   margin-top: 30px;
+  border-radius: 10px;
 }
 
 form button:hover{
   background: rgb(13, 106, 134)
+}
+
+form button:active{
+  padding: 5px 8px 5px 10px;
+}
+
+#result{
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
 }
