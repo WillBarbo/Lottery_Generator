@@ -31,7 +31,7 @@ h1 {
   text-align: center;
 }
 
-form input, form label, form button {
+form input, form label, form .submit {
   display: block;
   width: 100%;
   margin-bottom: 10px;
@@ -55,7 +55,6 @@ form input:focus {
   font-weight: 700;
   height: 50px;
   cursor: pointer;
-  margin-top: 30px;
   border-radius: 10px;
 }
 
@@ -83,7 +82,7 @@ form input:focus {
   font-weight: 700;
 }
 
-#result{
+#result {
   text-align: center;
   font-size: 24px;
   font-weight: 700;
@@ -91,4 +90,14 @@ form input:focus {
 
 .on { 
   background-color: #67ce63;
+}
+
+.num_error {
+  height: 30px;
+  width: auto;
+  text-align: center;
+  margin: 5px 0px;
+  font-size: 15px;
+  color: red;
+  opacity: 80%;
 }

@@ -2,40 +2,42 @@ formLottery.addEventListener('click', e => {
   e.preventDefault()
 
   const el = e.target
-  let focus = ''
-
-  if (el.classList.contains('submit')) formData()
-  else if (el.classList.contains('even')) {
-    focusOn(el)
+    
+  if (el.classList.contains('submit')) formData(focus)
+  else if (el.classList.contains('all')) {
+    focus = focusOn(el)
+  } else if (el.classList.contains('even')) {
+    focus = focusOn(el)
   } else if (el.classList.contains('odd')) {
-    focusOn(el)
+    focus = focusOn(el)
   } else if (el.classList.contains('prime')) {
-    focusOn(el)
+    focus = focusOn(el)
   } else if (el.classList.contains('fibonacci')) {
-    focusOn(el)
+    focus = focusOn(el)
   }
 })
 
 function focusOn(el) {
   const isOn = formLottery.querySelectorAll('.btn')
   const j = isOn.length
-  if (el.classList.contains('on')) {
-    el.classList.remove('on')
-    focus = ''
-  } else {
-    for (let i = 0; i < j; i++) {
-      const k = isOn[i] === el ? 'add' : 'remove'
-      isOn[i].classList[k]('on')
-    }
-    const extra = formLottery.querySelector('.on')
-    if (extra.classList.contains('even')) focus = 'even'
-    else if (extra.classList.contains('odd')) focus = 'odd'
-    else if (extra.classList.contains('prime')) focus = 'prime'
-    else {
-      focus = 'fibonacci'
-    }
+  let focus = ''
+  for (let i = 0; i < j; i++) {
+    const k = isOn[i] === el ? 'add' : 'remove'
+    isOn[i].classList[k]('on')
   }
+
+  const extra = formLottery.querySelector('.on')
+  if (extra.classList.contains('all')) focus = 'all'
+  else if (extra.classList.contains('even')) focus = 'even'
+  else if (extra.classList.contains('odd')) focus = 'odd'
+  else if (extra.classList.contains('prime')) focus = 'prime'
+  else {
+    focus = 'fibonacci'
+  }
+  
+  return focus
 }
+
 
 function formData() {
   const formData = new FormData(formLottery)
@@ -50,14 +52,8 @@ function formData() {
     maxRoll = 99999999
     displayMax.value = maxRoll
   }
-
-  if (maxRoll < numberRoll) {
-    numberRoll = maxRoll
-    displayNumber.value = maxRoll
-    alert(`'number of rolls' > 'highest number'`)
-  }
-
-  const rolls = randomNumber(maxRoll, numberRoll)
+  
+  const rolls = randomNumber(maxRoll, numberRoll, focus)
 
   result.textContent = rolls[0]
   for (let i = 1; i < rolls.length; i++) {
@@ -65,7 +61,7 @@ function formData() {
   }
 }
 
-function randomNumber(max, number) {
+function randomNumber(max, number, focus) {
   let base = []
   let bet = []
   let roll = 0
@@ -102,8 +98,10 @@ function randomNumber(max, number) {
 
   if (number > base.length) {
     number = base.length
-    displayNumber.value = number
-    alert(`'number of rolls' > 'possible numbers'`)
+    formLottery.querySelector('.num_roll').value = number
+    num_error.innerHTML = `Number of Rolls > Possible Rolls: Number of Rolls Adjusted to ${number}`
+  } else {
+    num_error.innerHTML = ''
   }
 
   for (let i = 0; i < number; i++) {
